@@ -1,10 +1,9 @@
-package com.example.py_server_motor_hongjae2;
+package com.example.abov2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -12,7 +11,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +41,19 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isConnected = true;
 
+    LinearLayout linear0, linear_logo;
+    RelativeLayout relative1;
+
     TextView recieveText;
     EditText editTextAddress, editTextPort, messageText;
-    Button connectBtn, disconnectBtn, leftBtn, upBtn, rightBtn, downBtn;
+    ImageButton disconnectBtn, connectBtn;
+    Button   leftBtn, upBtn, rightBtn, downBtn;
 
     WebView webView;
+    EditText webViewAddress;
+    Button webViewButton;
+
+    ImageButton thanksButton;
 
 
     @Override
@@ -52,31 +61,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        linear_logo=(LinearLayout)findViewById(R.id.linear_logo);
+        thanksButton=(ImageButton)findViewById(R.id.thanksButton);
 
-        /**
-         * 2020.03.23 최홍재
-         * video 재생하기
-         */
 
-        webView = (WebView) findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("192.168.43.29:5000");
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.setWebViewClient(new WebViewClientClass());
+        linear0 = (LinearLayout)findViewById(R.id.linear0);
+        final LinearLayout.LayoutParams linear0params = (LinearLayout.LayoutParams) linear0.getLayoutParams();
+        relative1 = (RelativeLayout)findViewById(R.id.linear1);
+
 
         /**
          * 소켓 통신 관련
          */
 
-
-        //앱 기본 스타일 설정
-        getSupportActionBar().setElevation(0);
-
         messageText = (EditText) findViewById(R.id.messageText);
         messageText.setVisibility(View.GONE); // 홍재 : message text를 보이지 않게 해서 button 외 접근을 막는다.
 
-        connectBtn = (Button) findViewById(R.id.buttonConnect);
-        disconnectBtn = (Button) findViewById(R.id.buttonDisconnect);
+        connectBtn = (ImageButton) findViewById(R.id.buttonConnect);
+        disconnectBtn = (ImageButton) findViewById(R.id.buttonDisconnect);
 
         /**
          * 2020.05.17
@@ -84,9 +86,8 @@ public class MainActivity extends AppCompatActivity {
          */
 
         try {
-            String url = new FindAddress("abo1234.iptime.org").execute().get(); //2020.05.20 URL로 부터 받기
+            String url = new com.example.ABO.FindAddress("abo1234.iptime.org").execute().get(); //2020.05.20 URL로 부터 받기
             editTextAddress = (EditText) findViewById(R.id.addressText);
-
             editTextAddress.setText(url); //2020.05.17 server의 ip를 적어줌
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -104,14 +105,59 @@ public class MainActivity extends AppCompatActivity {
         rightBtn = (Button) findViewById(R.id.buttonRight);
         downBtn = (Button) findViewById(R.id.buttonDown);
 
+
+        /**
+         * 2020.03.23 최홍재
+         * video 재생하기
+         */
+
+
+        webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://abo1234.iptime.org:5000/");
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClientClass());
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setSupportZoom(true);
+
+
+
+        webViewAddress = (EditText)findViewById(R.id.webViewAddress);
+        final String webViewAddr = webViewAddress.getText().toString();
+
+        webViewButton = (Button)findViewById(R.id.webViewButton);
+        webViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String webViewAddr = webViewAddress.getText().toString();
+                webView.loadUrl(webViewAddr);
+
+            }
+        });
+
+
+
+
         //connect 버튼 클릭
         connectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClientSocketOpen(connectBtn);
-
+                linear0params.topMargin = 0;
+                editTextAddress.setVisibility(View.GONE);
+                editTextPort.setVisibility(View.GONE);
+                webView.setVisibility(View.VISIBLE);
+                relative1.setVisibility(View.VISIBLE);
+                connectBtn.setVisibility(View.GONE);
+                disconnectBtn.setVisibility(View.VISIBLE);
+                webViewButton.setVisibility(View.VISIBLE);
+                webViewAddress.setVisibility(View.VISIBLE);
+                linear_logo.setVisibility(View.GONE);
+                thanksButton.setVisibility(View.GONE);
             }
         });
+
+
 
         //left 버튼 클릭
         leftBtn.setOnTouchListener(new View.OnTouchListener() {

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgrd2">
+
+    <LinearLayout
+        android:id="@+id/linear_logo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="60dp">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear0"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:fontFamily="@font/oldcamera"
+            android:textColor="#FFFFFF"
+            android:text="Welcome to"
+            android:id="@+id/textViewReciev" />
+
+
+        <ImageButton
+            android:id="@+id/thanksButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:background="#00FFFFFF"
+            android:src="@drawable/logo3_white"/>
+
+            <EditText
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:hint="Enter ABO's IP Address"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:id="@+id/addressText" />
+
+            <EditText
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Send message"
+                android:ems="10"
+                android:layout_marginTop="10dp"
+                android:id="@+id/messageText"
+                android:layout_below="@+id/portText" />
+
+            <EditText
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="port"
+                android:ems="10"
+                android:id="@+id/portText"
+                android:hint="Enter ABO's Port Number"
+                android:layout_below="@+id/addressText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_gravity="center"
+                android:id="@+id/buttonDisconnect"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="13dp"
+                android:scaleType="fitCenter"
+                android:background="#00FFFFFF"
+                android:src="@drawable/disconnection"
+                android:text="Disconnect"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_gravity="center"
+                android:id="@+id/buttonConnect"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="13dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/connection3"
+                android:text="Connect" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <WebView
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:id="@+id/webView"
+                android:scrollbars="none"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:visibility="gone"
+                    android:id="@+id/webViewAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="12"
+                    android:text="http://"
+                    android:hint="Camera IP:PORT"/>
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/webViewButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Camera"
+                    android:layout_toRightOf="@+id/webViewAddress"
+                    android:layout_alignBaseline="@+id/webViewAddress"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/linear1"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:text="up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonUp"
+            android:layout_margin="2dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:text="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonLeft"
+            android:layout_margin="2dp"
+            android:layout_alignBaseline="@+id/buttonDown"
+            android:layout_toLeftOf="@+id/buttonDown"/>
+
+        <Button
+            android:text="down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonDown"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/buttonUp"
+            android:layout_margin="2dp"/>
+
+
+        <Button
+            android:text="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonRight"
+            android:layout_margin="2dp"
+            android:layout_alignBaseline="@+id/buttonDown"
+            android:layout_toRightOf="@+id/buttonDown"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
